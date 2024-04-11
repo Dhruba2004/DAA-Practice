@@ -8,6 +8,7 @@ int comparator(const void* p1, const void* p2)
   
     return (*x)[2] - (*y)[2]; 
 } 
+
 void makeSet(int parent[], int rank[], int n){
     for (int i = 0; i < n; i++)
     {
