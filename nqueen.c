@@ -6,19 +6,8 @@
 // x[j] is the previous queen column no and i is the next queen column no
 // Function prototype for place (to avoid implicit declaration warning)
 int place(int k, int n, int* x);
-
-void nqueen(int k, int n, int* x) {
-  if (place(k, n, x)) {
-    if (k == n) {
-      for (int i = 1; i <= n; i++) {
-        printf("%d\t", x[i]);
-      }
-      printf("\n");
-    } else {
-      nqueen(k + 1, n, x);//same row checking
-    }
-  }
-}
+void nqueen(int k, int n, int* x, int board[4][4]);
+void printSolution(int board[4][4]);
 
 int place(int k, int n, int* x) {
   int i;
@@ -30,11 +19,34 @@ int place(int k, int n, int* x) {
   return 1;
 }
 
+void nqueen(int k, int n, int* x, int board[4][4]) {
+  if (place(k, n, x)) {
+    if (k == n) {
+      printSolution(board);
+    } else {
+      nqueen(k + 1, n, x, board); // same row checking
+    }
+  }
+}
+
+void printSolution(int board[4][4]) {
+  for (int i = 0; i < 4; i++) {
+    for (int j = 0; j < 4; j++) {
+      if (board[i][j]) {
+        printf("Q ");
+      } else {
+        printf(". ");
+      }
+    }
+    printf("\n");
+  }
+}
+
 int main() {
-  int n;
-  printf("Enter the number of queens: ");
-  scanf("%d", &n);
+  int n = 4;
   int x[n];
-  nqueen(1, n, x);
+  int board[4][4] = {{0}, {0}, {0}, {0}}; // Initialize board
+
+  nqueen(1, n, x, board);
   return 0;
 }
